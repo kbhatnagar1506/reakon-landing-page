@@ -393,8 +393,8 @@ export function HowItWorksSection() {
             isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
           }`}
         >
-          <span className="inline-block text-[12px] font-mono text-amber-400 uppercase tracking-widest mb-6 letter-spacing">
-            Why you can trust us
+          <span className="inline-block text-[12px] font-mono text-white-400 uppercase tracking-widest mb-6 letter-spacing">
+            - Why you can trust us
           </span>
           <h2 className="text-4xl lg:text-6xl font-display tracking-tight leading-tight mb-4 max-w-4xl mx-auto">
             Your money, your data, your CA — all protected.
@@ -408,7 +408,7 @@ export function HowItWorksSection() {
         <div className="grid lg:grid-cols-3 gap-6 mb-16">
           <TrustCard
             icon="🟢"
-            headline="No app. No login. No learning."
+            headline="Easy WhatsApp access."
             body="Forward a bill on WhatsApp when you get a minute. That's the entire job."
             proofChip="Works on the WhatsApp you already use."
             isVisible={isVisible}
@@ -480,7 +480,7 @@ export function HowItWorksSection() {
           </div>
 
           <p className="text-white/40 text-sm font-mono">
-            On WhatsApp · No card · No app · Your data stays in India
+            On Reakon · No card for intial trial · No app · Your data stays in India
           </p>
         </div>
       </div>

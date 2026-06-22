@@ -12,7 +12,6 @@ import { TrustedBySection } from "@/components/landing/trusted-by-section";
 import { IntroVideoSection } from "@/components/landing/intro-video-section";
 import { WhatReakonDoesSection } from "@/components/landing/what-reakon-does-section";
 import { FaqSection } from "@/components/landing/faq-section";
-import { PricingSection } from "@/components/landing/pricing-section";
 import { CtaSection } from "@/components/landing/cta-section";
 import { FooterSection } from "@/components/landing/footer-section";
 
@@ -33,7 +32,6 @@ export default function Home() {
       <SecuritySection />
       <DevelopersSection />
       <FaqSection />
-      <PricingSection />
       <CtaSection />
       <FooterSection />
     </main>
