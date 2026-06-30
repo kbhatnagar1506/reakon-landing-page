@@ -29,3 +29,6 @@ next-env.d.ts
 /*.MP4
 /*.mov
 /Screenshot*.png
+
+# use npm (package-lock.json); pnpm lockfile not used
+pnpm-lock.yaml
