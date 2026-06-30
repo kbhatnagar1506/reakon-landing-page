@@ -24,7 +24,7 @@ const logos = [
 
 function LogoCard({ logo }: { logo: typeof logos[0] }) {
   return (
-    <div className="shrink-0 flex items-center justify-center bg-white border border-gray-200 rounded-2xl px-7 py-4 shadow-sm hover:shadow-md hover:border-gray-300 transition-all duration-200 text-gray-800 mx-2">
+    <div className="shrink-0 flex items-center justify-center border border-gray-200 rounded-2xl px-7 py-4 shadow-sm hover:shadow-md hover:border-gray-300 transition-all duration-200 text-gray-800 mx-2">
       {logo.svg}
     </div>
   );
@@ -34,7 +34,7 @@ export function LogoMarqueeSection() {
   const strip = [...logos, ...logos];
 
   return (
-    <section className="relative py-20 border-t border-foreground/10 overflow-hidden bg-background">
+    <section className="relative py-20 overflow-hidden">
 
       {/* Heading */}
       <div className="text-center mb-14 px-6">

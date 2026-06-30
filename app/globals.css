@@ -4,7 +4,7 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  --background: oklch(0.985 0.002 90);
+  --background: #EDF4FB;
   --foreground: oklch(0.12 0.01 60);
   --card: oklch(1 0 0);
   --card-foreground: oklch(0.12 0.01 60);
@@ -92,6 +92,11 @@
     scroll-behavior: smooth;
     scroll-padding-top: 90px;
   }
+}
+
+html, body {
+  background-color: #C5DBF2;
+  overscroll-behavior-y: none;
 }
 
 @layer utilities {

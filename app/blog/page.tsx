@@ -2,100 +2,12 @@
 
 import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
+import { posts, categories, type Post } from "./posts";
 
 const JADE = "oklch(0.62 0.15 160)";
 
-const blogs = [
-  {
-    id: 1,
-    tag: "GST Insights",
-    tagColor: "#16a34a",
-    title: "How Indian businesses lose ₹2–5 lakhs in GST credit every year — without knowing it",
-    excerpt: "Most business owners assume their CA is handling GST reconciliation. The reality: reconciliation gaps are common, invisible, and expensive. Here's exactly what's happening to your money.",
-    date: "June 20, 2026",
-    readTime: "6 min read",
-    author: "Reakon Team",
-    featured: true,
-    image: "gst-credit",
-    gradient: "from-emerald-50 to-teal-50",
-    accentColor: "#059669",
-  },
-  {
-    id: 2,
-    tag: "Cash Flow",
-    tagColor: "#2563eb",
-    title: "The ₹85,000 problem: why overdue invoices are destroying small business cash flow",
-    excerpt: "Outstanding receivables are the silent killer of Indian SMEs. We analysed 200+ businesses and found one uncomfortable truth about why customers delay payment — and how to stop it.",
-    date: "June 14, 2026",
-    readTime: "5 min read",
-    author: "Reakon Team",
-    featured: false,
-    image: "cash-flow",
-    gradient: "from-blue-50 to-indigo-50",
-    accentColor: "#2563eb",
-  },
-  {
-    id: 3,
-    tag: "Vendor Risk",
-    tagColor: "#d97706",
-    title: "Your vendor didn't file GSTR-1. You just paid for their mistake.",
-    excerpt: "When a supplier fails to file their GST return, the ITC you claimed gets reversed by the department. You lose money you were owed — for someone else's error. Here's how to protect yourself.",
-    date: "June 7, 2026",
-    readTime: "7 min read",
-    author: "Reakon Team",
-    featured: false,
-    image: "vendor-risk",
-    gradient: "from-amber-50 to-orange-50",
-    accentColor: "#d97706",
-  },
-  {
-    id: 4,
-    tag: "For CAs",
-    tagColor: "#7c3aed",
-    title: "Why your clients never read the reports you send — and what to do instead",
-    excerpt: "CAs spend hours preparing detailed P&L reports that clients open once and forget. The problem isn't the report — it's the format. Here's the shift that changes everything.",
-    date: "May 30, 2026",
-    readTime: "4 min read",
-    author: "Reakon Team",
-    featured: false,
-    image: "ca-reports",
-    gradient: "from-violet-50 to-purple-50",
-    accentColor: "#7c3aed",
-  },
-  {
-    id: 5,
-    tag: "WhatsApp",
-    tagColor: "#16a34a",
-    title: "Running a business on WhatsApp: the unofficial guide Indian SMEs actually need",
-    excerpt: "90% of Indian business communication already happens on WhatsApp. So why is financial management still stuck in email threads and spreadsheets? Here's how to close the gap.",
-    date: "May 22, 2026",
-    readTime: "5 min read",
-    author: "Reakon Team",
-    featured: false,
-    image: "whatsapp",
-    gradient: "from-green-50 to-emerald-50",
-    accentColor: "#16a34a",
-  },
-  {
-    id: 6,
-    tag: "ITC Explained",
-    tagColor: "#0891b2",
-    title: "GSTR-2B vs GSTR-2A: what's the difference and why it costs you money",
-    excerpt: "Most business owners treat 2A and 2B as the same thing. They're not — and that confusion is one of the most common reasons input tax credit gets left on the table.",
-    date: "May 15, 2026",
-    readTime: "8 min read",
-    author: "Reakon Team",
-    featured: false,
-    image: "gstr",
-    gradient: "from-cyan-50 to-sky-50",
-    accentColor: "#0891b2",
-  },
-];
-
-const categories = ["All", "GST Insights", "Cash Flow", "Vendor Risk", "For CAs", "WhatsApp", "ITC Explained"];
-
-function useInView(threshold = 0.15) {
-  const ref = useRef<HTMLDivElement>(null);
+function useInView<T extends HTMLElement = HTMLDivElement>(threshold = 0.15) {
+  const ref = useRef<T>(null);
   const [inView, setInView] = useState(false);
   useEffect(() => {
     const el = ref.current;
@@ -178,12 +90,13 @@ function BlogIllustration({ type, color }: { type: string; color: string }) {
   );
 }
 
-function FeaturedCard({ blog }: { blog: typeof blogs[0] }) {
-  const { ref, inView } = useInView(0.1);
+function FeaturedCard({ blog }: { blog: Post }) {
+  const { ref, inView } = useInView<HTMLAnchorElement>(0.1);
   return (
-    <div
+    <Link
+      href={`/blog/${blog.slug}`}
       ref={ref}
-      className="group relative rounded-3xl overflow-hidden border border-foreground/10 cursor-pointer"
+      className="group relative block rounded-3xl overflow-hidden border border-foreground/10 cursor-pointer"
       style={{
         opacity: inView ? 1 : 0,
         transform: inView ? "translateY(0)" : "translateY(40px)",
@@ -239,14 +152,15 @@ function FeaturedCard({ blog }: { blog: typeof blogs[0] }) {
           </div>
         </div>
       </div>
-    </div>
+    </Link>
   );
 }
 
-function BlogCard({ blog, index }: { blog: typeof blogs[0]; index: number }) {
-  const { ref, inView } = useInView(0.15);
+function BlogCard({ blog, index }: { blog: Post; index: number }) {
+  const { ref, inView } = useInView<HTMLAnchorElement>(0.15);
   return (
-    <div
+    <Link
+      href={`/blog/${blog.slug}`}
       ref={ref}
       className="group relative flex flex-col rounded-2xl overflow-hidden border border-foreground/10 hover:border-foreground/20 hover:shadow-xl cursor-pointer bg-background"
       style={{
@@ -294,7 +208,7 @@ function BlogCard({ blog, index }: { blog: typeof blogs[0]; index: number }) {
           </div>
         </div>
       </div>
-    </div>
+    </Link>
   );
 }
 
@@ -376,8 +290,8 @@ export default function BlogPage() {
     return () => clearTimeout(t);
   }, []);
 
-  const featured = blogs.find(b => b.featured)!;
-  const filtered = blogs.filter(b => !b.featured && (activeCategory === "All" || b.tag === activeCategory));
+  const featured = posts.find(b => b.featured) ?? posts[0];
+  const filtered = posts.filter(b => b.slug !== featured.slug && (activeCategory === "All" || b.tag === activeCategory));
 
   return (
     <div className="min-h-screen bg-background">
@@ -453,7 +367,7 @@ export default function BlogPage() {
         {/* Blog grid */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {filtered.map((blog, i) => (
-            <BlogCard key={blog.id} blog={blog} index={i} />
+            <BlogCard key={blog.slug} blog={blog} index={i} />
           ))}
         </div>
 

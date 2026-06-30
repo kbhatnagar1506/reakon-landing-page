@@ -1,6 +1,6 @@
 "use client";
 
-import { Play } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
 
 const features = [
   {
@@ -24,68 +24,114 @@ const features = [
 ];
 
 export function IntroVideoSection() {
+  const ref = useRef<HTMLElement>(null);
+  const [vis, setVis] = useState(false);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const obs = new IntersectionObserver(
+      ([e]) => {
+        if (e.isIntersecting) setVis(true);
+      },
+      { threshold: 0.15 }
+    );
+    obs.observe(el);
+    return () => obs.disconnect();
+  }, []);
+
   return (
-    <section className="relative py-24 lg:py-32 border-t border-foreground/10">
-      <div className="max-w-[1400px] mx-auto px-6 lg:px-12">
-        <div className="grid lg:grid-cols-2 gap-16 lg:gap-24 items-center">
+    <section ref={ref} className="relative py-16 lg:py-32">
+      <div className="max-w-[1400px] mx-auto px-5 sm:px-6 lg:px-12">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 sm:gap-12 lg:gap-24 items-center">
 
-          {/* Left — Video placeholder */}
-          <div className="relative group">
-            <div className="relative aspect-video bg-foreground/5 border border-foreground/10 overflow-hidden">
-              {/* Placeholder background */}
-              <div className="absolute inset-0 flex items-center justify-center">
-                {/* Grid pattern */}
-                <div
-                  className="absolute inset-0 opacity-20"
-                  style={{
-                    backgroundImage:
-                      "linear-gradient(var(--foreground) 1px, transparent 1px), linear-gradient(90deg, var(--foreground) 1px, transparent 1px)",
-                    backgroundSize: "40px 40px",
-                    opacity: 0.05,
-                  }}
-                />
-                {/* Play button */}
-                <div className="relative z-10 flex flex-col items-center gap-4">
-                  <div className="w-16 h-16 rounded-sm bg-foreground flex items-center justify-center group-hover:scale-110 transition-transform duration-300 cursor-pointer">
-                    <Play className="w-6 h-6 text-background fill-background ml-1" />
-                  </div>
-                  <p className="text-sm font-mono text-muted-foreground tracking-widest uppercase">
-                    Launch video coming soon
-                  </p>
-                </div>
-              </div>
-
-              {/* Corner decorations */}
-              <div className="absolute top-0 left-0 w-8 h-8 border-t-2 border-l-2 border-foreground/30" />
-              <div className="absolute top-0 right-0 w-8 h-8 border-t-2 border-r-2 border-foreground/30" />
-              <div className="absolute bottom-0 left-0 w-8 h-8 border-b-2 border-l-2 border-foreground/30" />
-              <div className="absolute bottom-0 right-0 w-8 h-8 border-b-2 border-r-2 border-foreground/30" />
-            </div>
+          {/* Left — YouTube video (below text on mobile) */}
+          <div
+            className="relative rounded-2xl overflow-hidden order-2 lg:order-1"
+            style={{
+              aspectRatio: "16/9",
+              boxShadow:
+                "0 12px 50px rgba(11,34,82,0.12), 0 2px 8px rgba(0,0,0,0.08)",
+              opacity: vis ? 1 : 0,
+              transform: vis
+                ? "translateY(0) scale(1)"
+                : "translateY(40px) scale(0.97)",
+              transition:
+                "opacity 700ms cubic-bezier(0.22,1,0.36,1), transform 700ms cubic-bezier(0.22,1,0.36,1)",
+            }}
+          >
+            <iframe
+              src="https://www.youtube.com/embed/5l2-SNmA1v8?autoplay=1&mute=1&loop=1&playlist=5l2-SNmA1v8&controls=0&rel=0&modestbranding=1&showinfo=0&iv_load_policy=3&disablekb=1"
+              title="Reakon Demo"
+              allow="autoplay; fullscreen"
+              allowFullScreen
+              className="w-full h-full"
+              style={{ border: "none", display: "block" }}
+            />
+            {/* Block YouTube hover UI */}
+            <div className="absolute inset-0" style={{ zIndex: 1 }} />
           </div>
 
-          {/* Right — Text content */}
-          <div>
-            <span className="inline-flex items-center gap-3 text-sm font-mono text-muted-foreground mb-6">
-              <span className="w-8 h-px bg-foreground/30" />
+          {/* Right — Text content (above video on mobile) */}
+          <div className="order-1 lg:order-2">
+            <span
+              className="inline-flex items-center gap-3 font-mono text-[11px] uppercase tracking-widest mb-6"
+              style={{
+                color: "rgba(0,0,0,0.4)",
+                opacity: vis ? 1 : 0,
+                transform: vis ? "translateY(0)" : "translateY(24px)",
+                transition:
+                  "opacity 700ms ease 100ms, transform 700ms ease 100ms",
+              }}
+            >
+              <span className="w-8 h-px bg-black/20" />
               Introducing Reakon
             </span>
 
-            <h2 className="text-4xl lg:text-5xl font-display tracking-tight leading-[1.05] mb-12">
-                            Introducing Reakon
-
+            <h2
+              className="font-display tracking-tight leading-[1.05] mb-8 lg:mb-12"
+              style={{
+                color: "#000",
+                fontSize: "clamp(1.7rem, 6vw, 3rem)",
+                opacity: vis ? 1 : 0,
+                transform: vis ? "translateY(0)" : "translateY(24px)",
+                transition:
+                  "opacity 700ms ease 200ms, transform 700ms ease 200ms",
+              }}
+            >
+              Introducing Reakon
             </h2>
 
-            <div className="space-y-10">
-              {features.map((f) => (
-                <div key={f.number} className="flex gap-6">
-                  <span className="font-mono text-xs text-muted-foreground mt-1 shrink-0 w-6">
+            <div className="space-y-8 lg:space-y-10">
+              {features.map((f, i) => (
+                <div
+                  key={f.number}
+                  className="flex gap-4 sm:gap-6"
+                  style={{
+                    opacity: vis ? 1 : 0,
+                    transform: vis ? "translateY(0)" : "translateY(24px)",
+                    transition: `opacity 700ms ease ${300 + i * 100}ms, transform 700ms ease ${
+                      300 + i * 100
+                    }ms`,
+                  }}
+                >
+                  <span
+                    className="font-mono text-xs mt-1 shrink-0 w-6"
+                    style={{ color: "#4F6EF7" }}
+                  >
                     {f.number}
                   </span>
                   <div>
-                    <h3 className="text-base font-semibold text-foreground mb-1">
+                    <h3
+                      className="text-base font-semibold mb-1.5"
+                      style={{ color: "#000" }}
+                    >
                       {f.title}
                     </h3>
-                    <p className="text-sm text-muted-foreground leading-relaxed">
+                    <p
+                      className="text-sm leading-relaxed"
+                      style={{ color: "rgba(0,0,0,0.55)" }}
+                    >
                       {f.description}
                     </p>
                   </div>

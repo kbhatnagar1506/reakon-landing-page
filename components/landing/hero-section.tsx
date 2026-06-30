@@ -1,171 +1,238 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { Button } from "@/components/ui/button";
+import { useEffect, useRef, useState } from "react";
 import { ArrowRight } from "lucide-react";
-import { Iphone } from "@/components/ui/iphone";
-
-const words = ["GST money",
-"Input tax credit",
-"Tax refunds",
-"Working capital",
-"Hard-earned margins"
-,"Every rupee"];
 
 export function HeroSection() {
   const [isVisible, setIsVisible] = useState(false);
-  const [wordIndex, setWordIndex] = useState(0);
+  const [anim, setAnim] = useState({ rotateX: 34, scale: 0.86, opacity: 1 });
+  const videoRef = useRef<HTMLDivElement>(null);
+  const screenRef = useRef<HTMLDivElement>(null);
+  // fitScale maps the fixed 1440px iframe down to the container width.
+  // height is the visible crop height of the screen container.
+  const [fit, setFit] = useState({ mobile: false, fitScale: 0.834, height: 720, iframeW: 1440, iframeH: 1037 });
 
   useEffect(() => {
     setIsVisible(true);
   }, []);
 
+  // Responsively fit the fixed-size (1440px) iframe to the container width.
   useEffect(() => {
-    const interval = setInterval(() => {
-      setWordIndex((prev) => (prev + 1) % words.length);
-    }, 2500);
-    return () => clearInterval(interval);
+    const el = screenRef.current;
+    if (!el) return;
+
+    const measure = () => {
+      const w = el.clientWidth;
+      if (!w) return;
+
+      // Phones: the dashboard is itself responsive, so load it at native width
+      // and let its own mobile layout render (no 1440px down-scaling).
+      if (w < 768) {
+        setFit({ mobile: true, fitScale: 1, height: 820, iframeW: w, iframeH: 820 });
+        return;
+      }
+
+      // Tablet/desktop: render the full 1440px dashboard scaled to fit the width.
+      const fitScale = w / 1440;
+      let height: number;
+      if (w >= 1200) {
+        height = 720; // desktop unchanged
+      } else {
+        const t = Math.min(1, Math.max(0, (w - 343) / (1200 - 343)));
+        const ratio = 0.85 + (0.6 - 0.85) * t;
+        height = Math.min(720, w * ratio);
+      }
+      setFit({ mobile: false, fitScale, height, iframeW: 1440, iframeH: 1037 });
+    };
+
+    measure();
+
+    let ro: ResizeObserver | undefined;
+    if (typeof ResizeObserver !== "undefined") {
+      ro = new ResizeObserver(measure);
+      ro.observe(el);
+    }
+    window.addEventListener("resize", measure);
+    return () => {
+      ro?.disconnect();
+      window.removeEventListener("resize", measure);
+    };
   }, []);
 
+  useEffect(() => {
+    const el = videoRef.current;
+    if (!el) return;
+
+    const clamp = (v: number) => Math.min(1, Math.max(0, v));
+
+    const update = () => {
+      const rect = el.getBoundingClientRect();
+      const vh = window.innerHeight;
+      const focal = rect.top + rect.height * 0.32;
+      const offset = focal - vh * 0.5; // <0 above center (exiting up), >0 below (entering)
+
+      if (offset >= 0) {
+        // Entering from below: slow zoom in as it comes up.
+        const t = clamp(1 - offset / (vh * 1.05));
+        setAnim({ rotateX: 0, scale: 0.85 + t * 0.2, opacity: 1 });
+      } else {
+        // Past center / scrolling up: stay flat and zoom out.
+        const e = clamp(-offset / (vh * 0.6));
+        setAnim({ rotateX: 0, scale: 1 - e * 0.26, opacity: 1 - e * 0.25 });
+      }
+    };
+
+    update();
+    window.addEventListener("scroll", update, { passive: true });
+    window.addEventListener("resize", update);
+    return () => {
+      window.removeEventListener("scroll", update);
+      window.removeEventListener("resize", update);
+    };
+  }, []);
+
+  const { rotateX, scale, opacity: screenOpacity } = anim;
+
   return (
-    <section className="relative min-h-screen flex flex-col justify-center overflow-hidden">
-      
-      {/* Subtle grid lines */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none opacity-30">
-        {[...Array(8)].map((_, i) => (
-          <div
-            key={`h-${i}`}
-            className="absolute h-px bg-foreground/10"
-            style={{
-              top: `${12.5 * (i + 1)}%`,
-              left: 0,
-              right: 0,
-            }}
-          />
-        ))}
-        {[...Array(12)].map((_, i) => (
-          <div
-            key={`v-${i}`}
-            className="absolute w-px bg-foreground/10"
-            style={{
-              left: `${8.33 * (i + 1)}%`,
-              top: 0,
-              bottom: 0,
-            }}
-          />
-        ))}
+    <section
+      className="relative flex flex-col items-center min-h-screen"
+      style={{
+        background: "linear-gradient(180deg, #B8D8F0 0%, #C8E2F7 20%, #D8EBF9 45%, #EDF4FB 100%)",
+      }}
+    >
+      {/* Hero cloud blobs */}
+      <div className="absolute inset-0 pointer-events-none overflow-hidden">
+        <div style={{ position:"absolute", top:"4%", left:"-10%", width:"500px", height:"260px", background:"radial-gradient(ellipse, rgba(255,255,255,0.75) 0%, transparent 70%)", filter:"blur(28px)", borderRadius:"50%" }} />
+        <div style={{ position:"absolute", top:"10%", right:"-8%", width:"460px", height:"220px", background:"radial-gradient(ellipse, rgba(255,255,255,0.7) 0%, transparent 70%)", filter:"blur(24px)", borderRadius:"50%" }} />
+        <div style={{ position:"absolute", top:"6%", left:"30%", width:"700px", height:"180px", background:"radial-gradient(ellipse, rgba(255,255,255,0.55) 0%, transparent 70%)", filter:"blur(36px)", borderRadius:"50%" }} />
+        <div style={{ position:"absolute", top:"28%", left:"-5%", width:"380px", height:"160px", background:"radial-gradient(ellipse, rgba(255,255,255,0.5) 0%, transparent 70%)", filter:"blur(30px)", borderRadius:"50%" }} />
+        <div style={{ position:"absolute", top:"22%", right:"5%", width:"420px", height:"180px", background:"radial-gradient(ellipse, rgba(255,255,255,0.5) 0%, transparent 70%)", filter:"blur(28px)", borderRadius:"50%" }} />
+        <div style={{ position:"absolute", top:"45%", left:"15%", width:"650px", height:"200px", background:"radial-gradient(ellipse, rgba(255,255,255,0.4) 0%, transparent 70%)", filter:"blur(40px)", borderRadius:"50%" }} />
+        <div style={{ position:"absolute", top:"55%", right:"-5%", width:"350px", height:"160px", background:"radial-gradient(ellipse, rgba(255,255,255,0.45) 0%, transparent 70%)", filter:"blur(26px)", borderRadius:"50%" }} />
       </div>
-      
-      <div className="relative z-10 max-w-[1400px] mx-auto px-6 lg:px-12 py-20 lg:py-32">
-        {/* Eyebrow */}
-        <div 
-          className={`mb-8 transition-all duration-700 ${
-            isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
-          }`}
+
+      {/* Hero text */}
+      <div className="relative z-10 w-full max-w-[1100px] mx-auto px-6 lg:px-12 pt-28 lg:pt-40 pb-16 text-center">
+
+        {/* Headline */}
+        <h1
+          className="font-display tracking-tight leading-[1.03]"
+          style={{
+            fontSize: "clamp(2rem, 5.4vw, 5.2rem)",
+            fontWeight: 400,
+            letterSpacing: "-0.02em",
+            color: "#000000",
+            opacity: isVisible ? 1 : 0,
+            transform: isVisible ? "translateY(0)" : "translateY(32px)",
+            transition: "opacity 900ms ease 100ms, transform 900ms ease 100ms",
+          }}
         >
-          <span className="inline-flex items-center gap-3 text-sm font-mono text-muted-foreground">
-            <span className="w-8 h-px bg-foreground/30" />
-           Transforming Indian Finance systems 
-          </span>
-        </div>
-        
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-          {/* Left Column - Tagline Content */}
-          <div>
-            {/* Main headline */}
-            <div className="mb-12">
-              <h1
-                className={`text-[clamp(2.5rem,5vw,5rem)] font-display leading-[0.95] tracking-tight transition-all duration-1000 ${
-                  isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-                }`}
-              >
-                <span className="block">Protecting </span>
+          Stop losing the GST money<br />
+          that's already yours
+        </h1>
 
-                  <span className="relative inline-block">
-                    <span
-                      key={wordIndex}
-                      className="inline-flex"
-                    >
-                      {words[wordIndex].split("").map((char, i) => (
-                        <span
-                          key={`${wordIndex}-${i}`}
-                          className="inline-block animate-char-in"
-                          style={{
-                            animationDelay: `${i * 50}ms`,
-                            marginRight: char === " " ? "0.25em" : "0",
-                          }}
-                        >
-                          {char === "" ? "" : char}
-                        </span>
-                      ))}
-                    </span>
-                  </span>
-                  <span className="block">
-                  of Indian businesses like never before{" "}
-                </span>
-              </h1>
-            </div>
-            
-            {/* Description */}
-            <p
-              className={`text-base lg:text-xl text-muted-foreground leading-relaxed max-w-xl transition-all duration-700 delay-200 ${
-                isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
-              }`}
-            >
-              Recovering the GST credit you're losing, chases the customers who owe you, and flags the vendors who put your money at risk — all on WhatsApp, without changing how you work.
+        {/* Divider */}
+        <div
+          className="mx-auto mt-8 mb-2"
+          style={{
+            width: "min(320px, 85%)",
+            height: "1px",
+            background: "linear-gradient(90deg, transparent 0%, rgba(11,34,82,0.18) 30%, rgba(11,34,82,0.18) 70%, transparent 100%)",
+            opacity: isVisible ? 1 : 0,
+            transition: "opacity 700ms ease 220ms",
+          }}
+        />
 
-            </p>
-            
-            {/* CTAs */}
-            <div
-              className={`flex flex-col sm:flex-row items-start gap-4 mt-8 transition-all duration-700 delay-300 ${
-                isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
-              }`}
-            >
-              <a
-                href="#"
-                className="inline-flex items-center justify-center text-white px-8 h-14 text-base rounded-sm group hover:opacity-90 transition-opacity"
-                style={{ background: "oklch(0.62 0.15 160)" }}
-              >
-                Start free trial
-                <ArrowRight className="w-4 h-4 ml-2 transition-transform group-hover:translate-x-1" />
-              </a>
-              <a
-                href="https://cal.com/reakon.in/45min"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center justify-center h-14 px-8 text-base rounded-sm border border-foreground/20 text-foreground hover:bg-foreground/5 transition-colors"
-              >
-                Contact us now
-              </a>
-            </div>
-          </div>
-          
-          {/* Right Column - iPhone portrait */}
-          <div
-            className={`relative flex items-center justify-center transition-all duration-700 delay-300 ${
-              isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
-            }`}
+        {/* Subheading */}
+        <p
+          className="mt-6 text-lg lg:text-xl leading-relaxed max-w-2xl mx-auto"
+          style={{
+            color: "#000000",
+            opacity: isVisible ? 1 : 0,
+            transform: isVisible ? "translateY(0)" : "translateY(16px)",
+            transition: "opacity 700ms ease 250ms, transform 700ms ease 250ms",
+          }}
+        >
+          Reakon finds the GST credit you're losing, chases the customers who owe you, and flags the vendors putting your money at risk — all on WhatsApp, without changing how you work.
+        </p>
+
+        {/* CTAs */}
+        <div
+          className="flex flex-row items-center justify-center gap-3 mt-10 w-full mx-auto"
+          style={{
+            opacity: isVisible ? 1 : 0,
+            transform: isVisible ? "translateY(0)" : "translateY(16px)",
+            transition: "opacity 700ms ease 350ms, transform 700ms ease 350ms",
+          }}
+        >
+          <a
+            href="#"
+            className="inline-flex items-center justify-center px-5 sm:px-8 h-12 sm:h-14 text-sm sm:text-base font-semibold group hover:opacity-90 transition-opacity text-white whitespace-nowrap"
+            style={{
+              background: "linear-gradient(180deg, #7B96FA 0%, #4F6EF7 50%, #3D59E8 100%)",
+              borderRadius: "14px",
+              boxShadow: "0 2px 0 rgba(255,255,255,0.18) inset, 0 4px 16px rgba(79,110,247,0.35)",
+            }}
           >
-            <div
-              style={{
-                width: "100%",
-                maxWidth: "380px",
-                filter: "drop-shadow(0 32px 64px rgba(0,0,0,0.18)) drop-shadow(0 8px 16px rgba(0,0,0,0.10))",
-              }}
-            >
-              <Iphone src="/reakon-whatsapp.png" />
-            </div>
-          </div>
+            Sign up
+            <ArrowRight className="w-4 h-4 ml-2 transition-transform group-hover:translate-x-1" />
+          </a>
+          <a
+            href="https://cal.com/reakon.in/45min"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center justify-center h-12 sm:h-14 px-5 sm:px-8 text-sm sm:text-base font-semibold hover:opacity-90 transition-opacity whitespace-nowrap"
+            style={{
+              background: "#ffffff",
+              borderRadius: "14px",
+              color: "#0B2252",
+              boxShadow: "0 1px 4px rgba(0,0,0,0.12)",
+            }}
+          >
+            Contact us now
+          </a>
         </div>
-        
       </div>
-      
-      {/* Stats marquee - full width outside container */}
 
-      
-      {/* Scroll indicator */}
-      
+      {/* Demo screen — opens like a laptop */}
+      <div
+        ref={videoRef}
+        className="relative z-10 w-full flex justify-center px-4 lg:px-10 pb-16 lg:pb-24"
+        style={{ perspective: "2200px" }}
+      >
+        <div
+          ref={screenRef}
+          className="w-full max-w-[1200px] rounded-t-2xl overflow-hidden"
+          style={{
+            height: `${fit.height}px`,
+            position: "relative",
+            transformStyle: "preserve-3d",
+            transformOrigin: "center top",
+            boxShadow: "0 -4px 40px rgba(11,34,82,0.12), 0 40px 80px rgba(0,0,0,0.15)",
+            opacity: isVisible ? screenOpacity : 0,
+            transform: `rotateX(${rotateX}deg) scale(${scale})`,
+            transition: "transform 450ms cubic-bezier(0.22,1,0.36,1), opacity 450ms ease",
+            willChange: "transform, opacity",
+          }}
+        >
+          <iframe
+            src="https://reakon-auth-82d7cb8eea61.herokuapp.com/demo/gst"
+            title="Reakon Demo"
+            style={{
+              border: "none",
+              display: "block",
+              position: "absolute",
+              top: 0,
+              left: 0,
+              width: fit.mobile ? "100%" : `${fit.iframeW}px`,
+              height: fit.mobile ? "100%" : `${fit.iframeH}px`,
+              transform: fit.mobile ? "none" : `scale(${fit.fitScale})`,
+              transformOrigin: "top left",
+            }}
+          />
+        </div>
+      </div>
+
     </section>
   );
 }

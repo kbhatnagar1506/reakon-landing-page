@@ -25,3 +25,7 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+# stray source media / screenshots at repo root (not part of the app; the used copies live in /public)
+/*.MP4
+/*.mov
+/Screenshot*.png
