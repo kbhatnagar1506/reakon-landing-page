@@ -66,23 +66,25 @@ function AutoVideo({ src }: { src: string }) {
 }
 
 /* ─── Animation 1: WhatsApp ITC Recovery ─── */
+const CDN = "https://pub-00ef4ee2038e4d60a65a29395f3be72c.r2.dev";
+
 function WhatsAppAnimation({ play }: { play: boolean }) {
-  return <AutoVideo src="/whatsapp-demo.mp4" />;
+  return <AutoVideo src={`${CDN}/whatsapp-demo.mp4`} />;
 }
 
 /* ─── Animation 2: CA Posts P&L ─── */
 function PLAnimation({ play }: { play: boolean }) {
-  return <AutoVideo src="/pl-demo.mp4" />;
+  return <AutoVideo src={`${CDN}/pl-demo.mp4`} />;
 }
 
 /* ─── Animation 3: Customer Payment Reminders ─── */
 function RemindersAnimation({ play }: { play: boolean }) {
-  return <AutoVideo src="/reminders-demo.mp4" />;
+  return <AutoVideo src={`${CDN}/reminders-demo.mp4`} />;
 }
 
 /* ─── Animation 4: Vendor Risk Flagging ─── */
 function VendorRiskAnimation({ play }: { play: boolean }) {
-  return <AutoVideo src="/vendor-demo.mp4" />;
+  return <AutoVideo src={`${CDN}/vendor-demo.mp4`} />;
 }
 
 /* ─── Main Section ─── */

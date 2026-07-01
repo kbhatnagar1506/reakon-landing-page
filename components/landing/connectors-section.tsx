@@ -25,8 +25,7 @@ function ConnectorsVideo({ vis }: { vis: boolean }) {
       }}
     >
       <video ref={videoRef} autoPlay muted loop playsInline className="w-full h-auto block" style={{ display: "block" }}>
-        <source src="/connectors-demo.mp4" type="video/mp4" />
-        <source src="/connectors-demo.mov" type="video/quicktime" />
+        <source src="https://pub-00ef4ee2038e4d60a65a29395f3be72c.r2.dev/connectors-demo.mp4" type="video/mp4" />
       </video>
     </div>
   );
