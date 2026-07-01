@@ -2,6 +2,33 @@
 
 import { useEffect, useRef, useState } from "react";
 
+function ConnectorsVideo({ vis }: { vis: boolean }) {
+  const videoRef = useRef<HTMLVideoElement>(null);
+  useEffect(() => {
+    const v = videoRef.current;
+    if (!v) return;
+    v.muted = true;
+    const attempt = () => v.play().catch(() => {});
+    attempt();
+    const obs = new IntersectionObserver(([e]) => { if (e.isIntersecting) attempt(); }, { threshold: 0.1 });
+    obs.observe(v);
+    return () => obs.disconnect();
+  }, []);
+  return (
+    <div
+      className="relative rounded-2xl overflow-hidden"
+      style={{
+        boxShadow: "0 8px 40px rgba(11,34,82,0.12), 0 2px 8px rgba(0,0,0,0.08)",
+        opacity: vis ? 1 : 0,
+        transform: vis ? "translateX(0) scale(1)" : "translateX(40px) scale(0.97)",
+        transition: "opacity 800ms cubic-bezier(0.22,1,0.36,1) 300ms, transform 800ms cubic-bezier(0.22,1,0.36,1) 300ms",
+      }}
+    >
+      <video ref={videoRef} src="/connectors-demo.mov" autoPlay muted loop playsInline className="w-full h-auto block" style={{ display: "block" }} />
+    </div>
+  );
+}
+
 export function ConnectorsSection() {
   const sectionRef = useRef<HTMLDivElement>(null);
   const [vis, setVis] = useState(false);
@@ -73,25 +100,7 @@ export function ConnectorsSection() {
           </div>
 
           {/* Right — video */}
-          <div
-            className="relative rounded-2xl overflow-hidden"
-            style={{
-              boxShadow: "0 8px 40px rgba(11,34,82,0.12), 0 2px 8px rgba(0,0,0,0.08)",
-              opacity: vis ? 1 : 0,
-              transform: vis ? "translateX(0) scale(1)" : "translateX(40px) scale(0.97)",
-              transition: "opacity 800ms cubic-bezier(0.22,1,0.36,1) 300ms, transform 800ms cubic-bezier(0.22,1,0.36,1) 300ms",
-            }}
-          >
-            <video
-              src="/connectors-demo.mov"
-              autoPlay
-              muted
-              loop
-              playsInline
-              className="w-full h-auto block"
-              style={{ display: "block" }}
-            />
-          </div>
+          <ConnectorsVideo vis={vis} />
 
         </div>
       </div>

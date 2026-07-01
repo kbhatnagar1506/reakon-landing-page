@@ -43,76 +43,46 @@ function AnimatedNumber({ value, show }: { value: number; show: boolean }) {
   );
 }
 
-/* ─── Animation 1: WhatsApp ITC Recovery ─── */
-function WhatsAppAnimation({ play }: { play: boolean }) {
+/* ─── Shared video component that imperatively calls play() on mobile ─── */
+function AutoVideo({ src }: { src: string }) {
+  const ref = useRef<HTMLVideoElement>(null);
+  useEffect(() => {
+    const v = ref.current;
+    if (!v) return;
+    v.muted = true;
+    const attempt = () => v.play().catch(() => {});
+    attempt();
+    const obs = new IntersectionObserver(([e]) => { if (e.isIntersecting) attempt(); }, { threshold: 0.1 });
+    obs.observe(v);
+    return () => obs.disconnect();
+  }, []);
   return (
     <div className="w-full rounded-lg overflow-hidden shadow-xl">
-      <video
-        className="w-full h-auto bg-black rounded-lg"
-        autoPlay
-        loop
-        muted
-        playsInline
-      >
-        <source src="/whatsapp-demo.mp4" type="video/mp4" />
-        Your browser does not support the video tag.
+      <video ref={ref} className="w-full h-auto bg-black rounded-lg" autoPlay loop muted playsInline>
+        <source src={src} type="video/mp4" />
       </video>
     </div>
   );
+}
+
+/* ─── Animation 1: WhatsApp ITC Recovery ─── */
+function WhatsAppAnimation({ play }: { play: boolean }) {
+  return <AutoVideo src="/whatsapp-demo.mp4" />;
 }
 
 /* ─── Animation 2: CA Posts P&L ─── */
 function PLAnimation({ play }: { play: boolean }) {
-  return (
-    <div className="w-full rounded-lg overflow-hidden shadow-xl">
-      <video
-        className="w-full h-auto bg-black rounded-lg"
-        autoPlay
-        loop
-        muted
-        playsInline
-      >
-        <source src="/pl-demo.mp4" type="video/mp4" />
-        Your browser does not support the video tag.
-      </video>
-    </div>
-  );
+  return <AutoVideo src="/pl-demo.mp4" />;
 }
 
 /* ─── Animation 3: Customer Payment Reminders ─── */
 function RemindersAnimation({ play }: { play: boolean }) {
-  return (
-    <div className="w-full rounded-lg overflow-hidden shadow-xl">
-      <video
-        className="w-full h-auto bg-black rounded-lg"
-        autoPlay
-        loop
-        muted
-        playsInline
-      >
-        <source src="/reminders-demo.mp4" type="video/mp4" />
-        Your browser does not support the video tag.
-      </video>
-    </div>
-  );
+  return <AutoVideo src="/reminders-demo.mp4" />;
 }
 
 /* ─── Animation 4: Vendor Risk Flagging ─── */
 function VendorRiskAnimation({ play }: { play: boolean }) {
-  return (
-    <div className="w-full rounded-lg overflow-hidden shadow-xl">
-      <video
-        className="w-full h-auto bg-black rounded-lg"
-        autoPlay
-        loop
-        muted
-        playsInline
-      >
-        <source src="/vendor-demo.mp4" type="video/mp4" />
-        Your browser does not support the video tag.
-      </video>
-    </div>
-  );
+  return <AutoVideo src="/vendor-demo.mp4" />;
 }
 
 /* ─── Main Section ─── */

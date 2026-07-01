@@ -112,7 +112,7 @@ export function HeroSection() {
       </div>
 
       {/* Hero text */}
-      <div className="relative z-10 w-full max-w-[1100px] mx-auto px-6 lg:px-12 pt-28 lg:pt-40 pb-16 text-center">
+      <div className="relative z-10 w-full max-w-[1100px] mx-auto px-6 lg:px-12 pt-36 lg:pt-48 pb-16 text-center">
 
         {/* Headline */}
         <h1
@@ -166,7 +166,7 @@ export function HeroSection() {
           }}
         >
           <a
-            href="#"
+            href="https://reakon.in"
             className="inline-flex items-center justify-center px-5 sm:px-8 h-12 sm:h-14 text-sm sm:text-base font-semibold group hover:opacity-90 transition-opacity text-white whitespace-nowrap"
             style={{
               background: "linear-gradient(180deg, #7B96FA 0%, #4F6EF7 50%, #3D59E8 100%)",
