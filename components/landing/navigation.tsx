@@ -18,6 +18,7 @@ const navLinks: NavLink[] = [
 // Mobile menu only lists links whose target section exists on phones.
 // #infrastructure ("Why Us") is display:none on mobile, so it is excluded here.
 const mobileNavLinks: NavLink[] = [
+  { name: "For CAs", href: "/for-cas", route: true },
   { name: "Features", href: "#what-reakon-does" },
   { name: "How it works", href: "#how-it-works" },
   { name: "Connectors", href: "#connectors" },
@@ -174,6 +175,28 @@ export function Navigation() {
 
             {/* Right: sign in + CTA */}
             <div className="hidden md:flex items-center" style={{ gap: "8px" }}>
+
+              <a
+                href="/for-cas"
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  padding: "8px 16px",
+                  fontSize: "13.5px",
+                  fontWeight: 600,
+                  color: "#3D59E8",
+                  background: "rgba(79,110,247,0.08)",
+                  border: "1px solid rgba(79,110,247,0.22)",
+                  borderRadius: "10px",
+                  textDecoration: "none",
+                  whiteSpace: "nowrap",
+                  transition: "background 150ms ease",
+                }}
+                onMouseEnter={e => { e.currentTarget.style.background = "rgba(79,110,247,0.16)"; }}
+                onMouseLeave={e => { e.currentTarget.style.background = "rgba(79,110,247,0.08)"; }}
+              >
+                For CAs
+              </a>
 
               <a
                 href="https://reakon.in"
