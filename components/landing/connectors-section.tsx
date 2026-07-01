@@ -24,7 +24,10 @@ function ConnectorsVideo({ vis }: { vis: boolean }) {
         transition: "opacity 800ms cubic-bezier(0.22,1,0.36,1) 300ms, transform 800ms cubic-bezier(0.22,1,0.36,1) 300ms",
       }}
     >
-      <video ref={videoRef} src="/connectors-demo.mov" autoPlay muted loop playsInline className="w-full h-auto block" style={{ display: "block" }} />
+      <video ref={videoRef} autoPlay muted loop playsInline className="w-full h-auto block" style={{ display: "block" }}>
+        <source src="/connectors-demo.mp4" type="video/mp4" />
+        <source src="/connectors-demo.mov" type="video/quicktime" />
+      </video>
     </div>
   );
 }
