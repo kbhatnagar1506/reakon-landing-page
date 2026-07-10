@@ -5,8 +5,6 @@ import { ArrowRight } from "lucide-react";
 
 export function HeroSection() {
   const [isVisible, setIsVisible] = useState(false);
-  const [anim, setAnim] = useState({ rotateX: 34, scale: 0.86, opacity: 1 });
-  const videoRef = useRef<HTMLDivElement>(null);
   const screenRef = useRef<HTMLDivElement>(null);
   // fitScale maps the fixed 1440px iframe down to the container width.
   // height is the visible crop height of the screen container.
@@ -58,40 +56,6 @@ export function HeroSection() {
       window.removeEventListener("resize", measure);
     };
   }, []);
-
-  useEffect(() => {
-    const el = videoRef.current;
-    if (!el) return;
-
-    const clamp = (v: number) => Math.min(1, Math.max(0, v));
-
-    const update = () => {
-      const rect = el.getBoundingClientRect();
-      const vh = window.innerHeight;
-      const focal = rect.top + rect.height * 0.32;
-      const offset = focal - vh * 0.5; // <0 above center (exiting up), >0 below (entering)
-
-      if (offset >= 0) {
-        // Entering from below: slow zoom in as it comes up.
-        const t = clamp(1 - offset / (vh * 1.05));
-        setAnim({ rotateX: 0, scale: 0.85 + t * 0.2, opacity: 1 });
-      } else {
-        // Past center / scrolling up: stay flat and zoom out.
-        const e = clamp(-offset / (vh * 0.6));
-        setAnim({ rotateX: 0, scale: 1 - e * 0.26, opacity: 1 - e * 0.25 });
-      }
-    };
-
-    update();
-    window.addEventListener("scroll", update, { passive: true });
-    window.addEventListener("resize", update);
-    return () => {
-      window.removeEventListener("scroll", update);
-      window.removeEventListener("resize", update);
-    };
-  }, []);
-
-  const { rotateX, scale, opacity: screenOpacity } = anim;
 
   return (
     <section
@@ -194,11 +158,9 @@ export function HeroSection() {
         </div>
       </div>
 
-      {/* Demo screen — opens like a laptop */}
+      {/* Demo screen — static, no scroll animation */}
       <div
-        ref={videoRef}
         className="relative z-10 w-full flex justify-center px-4 lg:px-10 pb-16 lg:pb-24"
-        style={{ perspective: "2200px" }}
       >
         <div
           ref={screenRef}
@@ -206,13 +168,7 @@ export function HeroSection() {
           style={{
             height: `${fit.height}px`,
             position: "relative",
-            transformStyle: "preserve-3d",
-            transformOrigin: "center top",
             boxShadow: "0 -4px 40px rgba(11,34,82,0.12), 0 40px 80px rgba(0,0,0,0.15)",
-            opacity: isVisible ? screenOpacity : 0,
-            transform: `rotateX(${rotateX}deg) scale(${scale})`,
-            transition: "transform 450ms cubic-bezier(0.22,1,0.36,1), opacity 450ms ease",
-            willChange: "transform, opacity",
           }}
         >
           <iframe
