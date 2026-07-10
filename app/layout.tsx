@@ -2,6 +2,7 @@ import React from "react"
 import type { Metadata } from 'next'
 import { Inter, Instrument_Serif, JetBrains_Mono } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
+import { TurnstileWidget } from '@/components/landing/turnstile-widget'
 import './globals.css'
 
 const inter = Inter({
@@ -52,7 +53,7 @@ export const metadata: Metadata = {
     title: 'Reakon — Stop losing the GST money that\'s already yours',
     description:
       'Find the GST credit you\'re losing, get paid faster, and flag risky vendors — all on WhatsApp.',
-    site: '@Reakonofficial',
+    site: '@ReakonHQ',
   },
   icons: {
     icon: [
@@ -72,6 +73,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={`${inter.variable} ${instrumentSerif.variable} ${jetbrainsMono.variable} font-sans antialiased`}>
         {children}
+        <TurnstileWidget />
         <Analytics />
       </body>
     </html>

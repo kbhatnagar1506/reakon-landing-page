@@ -51,15 +51,17 @@ export function FounderSection() {
             transition: "opacity 800ms cubic-bezier(0.22,1,0.36,1) 200ms, transform 800ms cubic-bezier(0.22,1,0.36,1) 200ms",
           }}
         >
-          <iframe
-            src={vis ? "https://www.youtube.com/embed/FSeVPqUQQrs?autoplay=1&mute=1&loop=1&playlist=FSeVPqUQQrs&rel=0&modestbranding=1" : ""}
-            title="A word from our founder"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen"
-            allowFullScreen
-            loading="lazy"
-            className="w-full h-full"
-            style={{ border: "none", display: "block" }}
-          />
+          {vis && (
+            <iframe
+              src="https://www.youtube.com/embed/FSeVPqUQQrs?autoplay=1&mute=1&loop=1&playlist=FSeVPqUQQrs&rel=0&modestbranding=1"
+              title="A word from our founder"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen"
+              allowFullScreen
+              loading="lazy"
+              className="w-full h-full"
+              style={{ border: "none", display: "block" }}
+            />
+          )}
         </div>
 
       </div>

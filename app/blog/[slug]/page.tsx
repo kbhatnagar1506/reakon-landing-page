@@ -41,7 +41,7 @@ export async function generateMetadata({
       card: "summary_large_image",
       title: post.metaTitle,
       description: post.metaDescription,
-      site: "@Reakonofficial",
+      site: "@ReakonHQ",
       images: [OG_IMAGE],
     },
   };

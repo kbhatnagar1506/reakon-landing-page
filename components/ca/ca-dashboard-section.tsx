@@ -13,7 +13,7 @@ const FEATURES = [
   "Deadline tracking across the book",
 ];
 
-const CA_URL = "https://app.reakon.in/ca";
+const CA_URL = "https://app.reakon.in/demo/ca";
 
 function DashboardMockup() {
   return (
@@ -43,7 +43,7 @@ function DashboardMockup() {
             <circle cx="6" cy="6" r="5" stroke="rgba(0,0,0,0.3)" strokeWidth="1.2" />
             <path d="M1.5 6h9M6 1.5C4.8 3 4 4.5 4 6s.8 3 2 4.5M6 1.5C7.2 3 8 4.5 8 6s-.8 3-2 4.5" stroke="rgba(0,0,0,0.3)" strokeWidth="1.2" />
           </svg>
-          <span className="font-mono text-[11px]" style={{ color: "rgba(0,0,0,0.45)" }}>app.reakon.in/ca</span>
+          <span className="font-mono text-[11px]" style={{ color: "rgba(0,0,0,0.45)" }}>app.reakon.in/demo/ca</span>
         </div>
       </div>
 

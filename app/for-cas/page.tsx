@@ -34,7 +34,7 @@ export const metadata: Metadata = {
     title: "Reakon for Chartered Accountants",
     description:
       "Filing-ready data, automatically. Free for your firm. One dashboard for your entire client book.",
-    site: "@Reakonofficial",
+    site: "@ReakonHQ",
   },
 };
 
