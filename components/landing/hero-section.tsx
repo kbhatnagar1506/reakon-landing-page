@@ -8,7 +8,7 @@ export function HeroSection() {
   const screenRef = useRef<HTMLDivElement>(null);
   // fitScale maps the fixed 1440px iframe down to the container width.
   // height is the visible crop height of the screen container.
-  const [fit, setFit] = useState({ mobile: false, fitScale: 0.834, height: 720, iframeW: 1440, iframeH: 1037 });
+  const [fit, setFit] = useState({ mobile: false, fitScale: 0.834, height: 820, iframeW: 1440, iframeH: 1037 });
 
   useEffect(() => {
     setIsVisible(true);
@@ -34,11 +34,11 @@ export function HeroSection() {
       const fitScale = w / 1440;
       let height: number;
       if (w >= 1200) {
-        height = 720; // desktop unchanged
+        height = 820; // desktop
       } else {
         const t = Math.min(1, Math.max(0, (w - 343) / (1200 - 343)));
         const ratio = 0.85 + (0.6 - 0.85) * t;
-        height = Math.min(720, w * ratio);
+        height = Math.min(820, w * ratio);
       }
       setFit({ mobile: false, fitScale, height, iframeW: 1440, iframeH: 1037 });
     };
@@ -164,7 +164,7 @@ export function HeroSection() {
       >
         <div
           ref={screenRef}
-          className="w-full max-w-[1200px] rounded-t-2xl overflow-hidden"
+          className="w-full max-w-[1400px] rounded-t-2xl overflow-hidden"
           style={{
             height: `${fit.height}px`,
             position: "relative",
