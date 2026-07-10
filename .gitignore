@@ -25,10 +25,20 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
-# stray source media / screenshots at repo root (not part of the app; the used copies live in /public)
+# macOS metadata
+.DS_Store
+**/.DS_Store
+
+# stray files at repo root
 /*.MP4
 /*.mov
-/Screenshot*.png
+/*.png
+/*.jpg
+/*.jpeg
+/image.png
+
+# unused public assets
+/public/loading-demo.mov
 
 # use npm (package-lock.json); pnpm lockfile not used
 pnpm-lock.yaml
