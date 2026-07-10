@@ -4,7 +4,24 @@ import { useEffect, useRef, useState } from "react";
 
 const SHEET_URL = "https://app.reakon.in/demo/ca/client/c12";
 
-export function ReakonSheetsSection() {
+type ReakonSheetsSectionProps = {
+  eyebrow?: string;
+  heading?: string;
+  subhead?: string;
+};
+
+const DEFAULT_COPY = {
+  eyebrow: "Introducing Reakon Sheets",
+  heading: "It’s not about the perfect number. It’s how you see it.",
+  subhead:
+    "Reakon Sheets lays out every figure — claimable, at-risk, deadlines — so clearly you never have to second-guess. No hunting, no reconciling in your head. Just look and know.",
+};
+
+export function ReakonSheetsSection({
+  eyebrow = DEFAULT_COPY.eyebrow,
+  heading = DEFAULT_COPY.heading,
+  subhead = DEFAULT_COPY.subhead,
+}: ReakonSheetsSectionProps = {}) {
   const ref = useRef<HTMLElement>(null);
   const screenRef = useRef<HTMLDivElement>(null);
   const [vis, setVis] = useState(false);
@@ -86,7 +103,7 @@ export function ReakonSheetsSection() {
             }}
           >
             <span className="w-8 h-px bg-black/20" />
-            Introducing Reakon Sheets
+            {eyebrow}
             <span className="w-8 h-px bg-black/20" />
           </span>
 
@@ -100,7 +117,7 @@ export function ReakonSheetsSection() {
               transition: "opacity 700ms ease 100ms, transform 700ms ease 100ms",
             }}
           >
-            It&apos;s not about the perfect number. It&apos;s how you see it.
+            {heading}
           </h2>
 
           <p
@@ -112,9 +129,7 @@ export function ReakonSheetsSection() {
               transition: "opacity 700ms ease 200ms, transform 700ms ease 200ms",
             }}
           >
-            Reakon Sheets lays out every figure — claimable, at-risk, deadlines — so
-            clearly you never have to second-guess. No hunting, no reconciling in your
-            head. Just look and know.
+            {subhead}
           </p>
         </div>
 

@@ -5,6 +5,7 @@ import { CaPainSection } from "@/components/ca/ca-pain-section";
 import { CaShiftSection } from "@/components/ca/ca-shift-section";
 import { CaPartnershipSection } from "@/components/ca/ca-partnership-section";
 import { CaDashboardSection } from "@/components/ca/ca-dashboard-section";
+import { ReakonSheetsSection } from "@/components/landing/reakon-sheets-section";
 import { CaComparisonSection } from "@/components/ca/ca-comparison-section";
 import { CaFaqSection } from "@/components/ca/ca-faq-section";
 import { CaFinalCtaSection } from "@/components/ca/ca-final-cta-section";
@@ -75,6 +76,11 @@ export default function ForCasPage() {
       <CaShiftSection />
       <CaPartnershipSection />
       <CaDashboardSection />
+      <ReakonSheetsSection
+        eyebrow="Introducing Reakon Sheets"
+        heading="It’s not about the perfect number. It’s how you hand it off."
+        subhead="Every client’s reconciliation — claimable, at-risk, mismatches, IMS actions, deadlines — laid out so clearly you file without second-guessing. Sort, filter, and export straight into your workflow."
+      />
       <CaComparisonSection />
       <CaFaqSection />
       <CaFinalCtaSection />

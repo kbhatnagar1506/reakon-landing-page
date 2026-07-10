@@ -3,6 +3,7 @@ import type { Metadata } from 'next'
 import { Inter, Instrument_Serif, JetBrains_Mono } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
 import { TurnstileWidget } from '@/components/landing/turnstile-widget'
+import { PreventInitialAutoScroll } from '@/components/prevent-initial-autoscroll'
 import './globals.css'
 
 const inter = Inter({
@@ -72,6 +73,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${inter.variable} ${instrumentSerif.variable} ${jetbrainsMono.variable} font-sans antialiased`}>
+        <PreventInitialAutoScroll />
         {children}
         <TurnstileWidget />
         <Analytics />
