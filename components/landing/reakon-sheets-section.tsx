@@ -8,9 +8,19 @@ export function ReakonSheetsSection() {
   const ref = useRef<HTMLElement>(null);
   const screenRef = useRef<HTMLDivElement>(null);
   const [vis, setVis] = useState(false);
-  // fitScale maps the fixed 1440px iframe down to the container width;
-  // height is the visible crop height of the screen container.
-  const [fit, setFit] = useState({ mobile: false, fitScale: 0.972, height: 820, iframeW: 1440, iframeH: 1037 });
+  // The sheet is a fixed-viewport app (footer tabs + AI bar pinned to the
+  // bottom). We render it at a fixed 1440×1080 logical size, scale it to the
+  // container width, and size the container to the FULL scaled height so the
+  // entire app — including the pinned footer — is visible (no crop).
+  const IFRAME_W = 1440;
+  const IFRAME_H = 1080;
+  const [fit, setFit] = useState({
+    mobile: false,
+    fitScale: 1400 / IFRAME_W,
+    height: Math.round(IFRAME_H * (1400 / IFRAME_W)),
+    iframeW: IFRAME_W,
+    iframeH: IFRAME_H,
+  });
 
   useEffect(() => {
     const el = ref.current;
@@ -35,20 +45,16 @@ export function ReakonSheetsSection() {
       if (!w) return;
 
       if (w < 768) {
-        setFit({ mobile: true, fitScale: 1, height: 820, iframeW: w, iframeH: 820 });
+        // Mobile: render the app's own responsive layout; peek height + tap to open full.
+        setFit({ mobile: true, fitScale: 1, height: 640, iframeW: w, iframeH: 640 });
         return;
       }
 
-      const fitScale = w / 1440;
-      let height: number;
-      if (w >= 1200) {
-        height = 820;
-      } else {
-        const t = Math.min(1, Math.max(0, (w - 343) / (1200 - 343)));
-        const ratio = 0.85 + (0.6 - 0.85) * t;
-        height = Math.min(820, w * ratio);
-      }
-      setFit({ mobile: false, fitScale, height, iframeW: 1440, iframeH: 1037 });
+      // Desktop/tablet: scale the fixed 1440×1080 app to the width and show it
+      // in full (container height = full scaled height, so the footer shows).
+      const fitScale = w / IFRAME_W;
+      const height = Math.round(IFRAME_H * fitScale);
+      setFit({ mobile: false, fitScale, height, iframeW: IFRAME_W, iframeH: IFRAME_H });
     };
 
     measure();

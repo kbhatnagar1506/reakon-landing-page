@@ -172,7 +172,7 @@ export function HeroSection() {
           }}
         >
           <iframe
-            src="https://reakon-auth-82d7cb8eea61.herokuapp.com/demo/gst"
+            src="https://app.reakon.in/demo"
             title="Reakon Demo"
             style={{
               border: "none",
