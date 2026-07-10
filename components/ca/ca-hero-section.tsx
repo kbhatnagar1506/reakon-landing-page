@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { ArrowRight } from "lucide-react";
 
-const DEMO_SRC = "https://reakon-auth-82d7cb8eea61.herokuapp.com/demo/gst";
+const DEMO_SRC = "https://app.reakon.in/demo/ca";
 
 export function CaHeroSection() {
   const [isVisible, setIsVisible] = useState(false);

@@ -19,11 +19,11 @@ export const metadata: Metadata = {
     "IMS invoice management system", "GSTR-2B reconciliation", "purchase register automation",
     "GST filing India", "chartered accountant GST tool",
   ],
-  alternates: { canonical: "/for-cas" },
+  alternates: { canonical: "/ca" },
   openGraph: {
     type: "website",
     locale: "en_IN",
-    url: "https://reakon.in/for-cas",
+    url: "https://reakon.in/ca",
     siteName: "Reakon",
     title: "Reakon for Chartered Accountants — GST done before you open Excel",
     description:

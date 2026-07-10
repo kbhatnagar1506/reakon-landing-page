@@ -3,7 +3,7 @@
 /**
  * Segmented pill that switches between the two site views:
  *  - "owners" → "/"          (For Business Owners)
- *  - "cas"    → "/for-cas"   (For CAs)
+ *  - "cas"    → "/ca"        (For CAs)
  * The active segment is a solid white chip; the inactive one is a link.
  */
 export function AudienceToggle({
@@ -60,7 +60,7 @@ export function AudienceToggle({
       }}
     >
       {segment("For Business Owners", "/", active === "owners")}
-      {segment("For CAs", "/for-cas", active === "cas")}
+      {segment("For CAs", "/ca", active === "cas")}
     </div>
   );
 }

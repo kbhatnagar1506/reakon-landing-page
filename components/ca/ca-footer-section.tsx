@@ -4,7 +4,7 @@ import { AudienceToggle } from "./audience-toggle";
 
 const footerLinks = {
   Product: [
-    { name: "For CAs", href: "/for-cas" },
+    { name: "For CAs", href: "/ca" },
     { name: "For Business Owners", href: "/" },
     { name: "Blog", href: "/blog" },
   ],

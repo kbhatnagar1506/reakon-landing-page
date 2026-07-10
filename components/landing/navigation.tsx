@@ -19,7 +19,7 @@ const navLinks: NavLink[] = [
 // Mobile menu only lists links whose target section exists on phones.
 // #infrastructure ("Why Us") is display:none on mobile, so it is excluded here.
 const mobileNavLinks: NavLink[] = [
-  { name: "For CAs", href: "/for-cas", route: true },
+  { name: "For CAs", href: "/ca", route: true },
   { name: "Features", href: "#what-reakon-does" },
   { name: "How it works", href: "#how-it-works" },
   { name: "Connectors", href: "#connectors" },
@@ -211,7 +211,7 @@ export function Navigation() {
             <div className="hidden md:flex items-center" style={{ gap: "8px" }}>
 
               <a
-                href="/for-cas"
+                href="/ca"
                 style={{
                   display: "flex",
                   alignItems: "center",
