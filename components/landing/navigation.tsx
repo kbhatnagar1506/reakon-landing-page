@@ -2,6 +2,7 @@
 
 import { useState, useEffect, type CSSProperties } from "react";
 import { Menu, X, ArrowRight } from "lucide-react";
+import Image from "next/image";
 
 type NavLink = { name: string; href: string; route?: boolean };
 
@@ -118,13 +119,13 @@ export function Navigation() {
           >
             {/* Logo */}
             <a href="#" style={{ display: "flex", alignItems: "center", flexShrink: 0 }}>
-              <img
+              <Image
                 src="/reakon no-bg logo-black.png"
                 alt="Reakon"
-                className="h-10 md:!h-[56px]"
-                style={{
-                  display: "block",
-                }}
+                width={180}
+                height={56}
+                priority
+                className="h-10 md:!h-[56px] w-auto"
               />
             </a>
 
@@ -337,10 +338,13 @@ export function Navigation() {
               onClick={() => setIsMobileMenuOpen(false)}
               style={{ display: "flex", alignItems: "center" }}
             >
-              <img
+              <Image
                 src="/reakon no-bg logo-black.png"
                 alt="Reakon"
-                style={{ display: "block", height: "40px" }}
+                width={130}
+                height={40}
+                className="w-auto"
+                style={{ height: "40px" }}
               />
             </a>
             <button

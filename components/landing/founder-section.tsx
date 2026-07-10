@@ -52,10 +52,11 @@ export function FounderSection() {
           }}
         >
           <iframe
-            src="https://www.youtube.com/embed/FSeVPqUQQrs?autoplay=1&mute=1&loop=1&playlist=FSeVPqUQQrs&rel=0&modestbranding=1"
+            src={vis ? "https://www.youtube.com/embed/FSeVPqUQQrs?autoplay=1&mute=1&loop=1&playlist=FSeVPqUQQrs&rel=0&modestbranding=1" : ""}
             title="A word from our founder"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen"
             allowFullScreen
+            loading="lazy"
             className="w-full h-full"
             style={{ border: "none", display: "block" }}
           />

@@ -1,6 +1,7 @@
 "use client";
 
 import { ArrowUpRight } from "lucide-react";
+import Image from "next/image";
 
 const footerLinks = {
   Product: [
@@ -66,9 +67,12 @@ export function FooterSection() {
         <div className="grid grid-cols-2 md:grid-cols-5 gap-x-6 gap-y-10 md:gap-12 lg:gap-8 pb-12 lg:pb-16">
           {/* Brand Column */}
           <div className="col-span-2">
-            <img
+            <Image
               src="/reakon no-bg logo-black.png"
               alt="Reakon"
+              width={155}
+              height={48}
+              className="w-auto"
               style={{ height: "48px", display: "block", marginBottom: "22px" }}
             />
             <p className="leading-relaxed mb-8 max-w-xs text-base" style={{ color: "rgba(0,0,0,0.55)" }}>
@@ -126,11 +130,15 @@ export function FooterSection() {
         className="relative w-full flex justify-center select-none pointer-events-none mt-9 lg:mt-[60px]"
         style={{ overflow: "hidden" }}
       >
-        <img
+        <Image
           src="/reakon-footer-wordmark.png"
           alt="Reakon"
+          width={1400}
+          height={200}
+          loading="lazy"
           style={{
             width: "100%",
+            height: "auto",
             objectFit: "cover",
             display: "block",
             maskImage: "linear-gradient(180deg, #000 45%, transparent 96%)",

@@ -60,14 +60,17 @@ export function IntroVideoSection() {
                 "opacity 700ms cubic-bezier(0.22,1,0.36,1), transform 700ms cubic-bezier(0.22,1,0.36,1)",
             }}
           >
-            <iframe
-              src="https://www.youtube.com/embed/5l2-SNmA1v8?autoplay=1&mute=1&loop=1&playlist=5l2-SNmA1v8&controls=0&rel=0&modestbranding=1&showinfo=0&iv_load_policy=3&disablekb=1"
-              title="Reakon Demo"
-              allow="autoplay; fullscreen"
-              allowFullScreen
-              className="w-full h-full"
-              style={{ border: "none", display: "block" }}
-            />
+            {vis && (
+              <iframe
+                src="https://www.youtube.com/embed/5l2-SNmA1v8?autoplay=1&mute=1&loop=1&playlist=5l2-SNmA1v8&controls=0&rel=0&modestbranding=1&showinfo=0&iv_load_policy=3&disablekb=1"
+                title="Reakon Demo"
+                allow="autoplay; fullscreen"
+                allowFullScreen
+                loading="lazy"
+                className="w-full h-full"
+                style={{ border: "none", display: "block" }}
+              />
+            )}
             {/* Block YouTube hover UI */}
             <div className="absolute inset-0" style={{ zIndex: 1 }} />
           </div>
