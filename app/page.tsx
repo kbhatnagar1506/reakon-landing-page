@@ -5,6 +5,7 @@ import { ConnectorsSection } from "@/components/landing/connectors-section";
 import { IntroVideoSection } from "@/components/landing/intro-video-section";
 import { WhatReakonDoesSection } from "@/components/landing/what-reakon-does-section";
 import { HowItWorksSection } from "@/components/landing/how-it-works-section";
+import { ReakonSheetsSection } from "@/components/landing/reakon-sheets-section";
 import { FounderSection } from "@/components/landing/founder-section";
 import { FaqSection } from "@/components/landing/faq-section";
 import { RegulatorySection } from "@/components/landing/regulatory-section";
@@ -28,6 +29,7 @@ export default function Home() {
       <IntroVideoSection />
       <WhatReakonDoesSection />
       <HowItWorksSection />
+      <ReakonSheetsSection />
       <InfrastructureSection />
       <FounderSection />
       <FaqSection />
