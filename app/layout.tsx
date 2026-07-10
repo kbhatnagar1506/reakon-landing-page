@@ -54,6 +54,14 @@ export const metadata: Metadata = {
       'Find the GST credit you\'re losing, get paid faster, and flag risky vendors — all on WhatsApp.',
     site: '@Reakonofficial',
   },
+  icons: {
+    icon: [
+      { url: '/icon.svg', type: 'image/svg+xml' },
+      { url: '/icon-light-32x32.png', sizes: '32x32', type: 'image/png', media: '(prefers-color-scheme: light)' },
+      { url: '/icon-dark-32x32.png',  sizes: '32x32', type: 'image/png', media: '(prefers-color-scheme: dark)' },
+    ],
+    apple: '/apple-icon.png',
+  },
   robots: { index: true, follow: true },
 }
 
