@@ -30,7 +30,7 @@ export function TurnstileWidget() {
       widgetIdRef.current = window.turnstile.render(containerRef.current, {
         sitekey: SITE_KEY,
         theme: "auto",
-        size: "compact",
+        size: "normal",
       });
     };
 
@@ -69,7 +69,7 @@ export function TurnstileWidget() {
       style={{
         position: "fixed",
         bottom: "16px",
-        left: "16px",
+        right: "16px",
         zIndex: 40,
       }}
     />
