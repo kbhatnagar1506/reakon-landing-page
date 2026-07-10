@@ -118,16 +118,8 @@ export function ReakonSheetsSection() {
           </p>
         </div>
 
-        {/* ── Live sheet ── */}
-        <div
-          className="mt-12 lg:mt-16 w-full flex justify-center"
-          style={{
-            opacity: vis ? 1 : 0,
-            transform: vis ? "translateY(0)" : "translateY(28px)",
-            transition:
-              "opacity 800ms cubic-bezier(0.22,1,0.36,1) 300ms, transform 800ms cubic-bezier(0.22,1,0.36,1) 300ms",
-          }}
-        >
+        {/* ── Live sheet (static, no animation) ── */}
+        <div className="mt-12 lg:mt-16 w-full flex justify-center">
           <div
             className="w-full max-w-[1400px] rounded-2xl overflow-hidden"
             style={{

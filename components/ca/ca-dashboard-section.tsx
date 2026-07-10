@@ -146,15 +146,8 @@ export function CaDashboardSection() {
             </div>
           </div>
 
-          {/* Mockup */}
-          <div
-            className="order-1 lg:order-2"
-            style={{
-              opacity: vis ? 1 : 0,
-              transform: vis ? "translateX(0) scale(1)" : "translateX(40px) scale(0.97)",
-              transition: `opacity 800ms ${EASE} 300ms, transform 800ms ${EASE} 300ms`,
-            }}
-          >
+          {/* Mockup (static, no animation) */}
+          <div className="order-1 lg:order-2">
             <DashboardMockup />
           </div>
         </div>

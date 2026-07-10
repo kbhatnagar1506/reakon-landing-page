@@ -8,7 +8,10 @@ export function HeroSection() {
   const screenRef = useRef<HTMLDivElement>(null);
   // fitScale maps the fixed 1440px iframe down to the container width.
   // height is the visible crop height of the screen container.
-  const [fit, setFit] = useState({ mobile: false, fitScale: 0.834, height: 820, iframeW: 1440, iframeH: 1037 });
+  // Render the demo app at a fixed 1440×1080 logical size, scale it to the
+  // container width, and size the container to the FULL scaled height so the
+  // whole page fits in the frame (no crop).
+  const [fit, setFit] = useState({ mobile: false, fitScale: 1300 / 1440, height: Math.round(1080 * (1300 / 1440)), iframeW: 1440, iframeH: 1080 });
 
   useEffect(() => {
     setIsVisible(true);
@@ -26,21 +29,15 @@ export function HeroSection() {
       // Phones: the dashboard is itself responsive, so load it at native width
       // and let its own mobile layout render (no 1440px down-scaling).
       if (w < 768) {
-        setFit({ mobile: true, fitScale: 1, height: 820, iframeW: w, iframeH: 820 });
+        setFit({ mobile: true, fitScale: 1, height: 700, iframeW: w, iframeH: 700 });
         return;
       }
 
-      // Tablet/desktop: render the full 1440px dashboard scaled to fit the width.
+      // Tablet/desktop: scale the fixed 1440×1080 app to the width and show it
+      // in full (container height = full scaled height, no crop).
       const fitScale = w / 1440;
-      let height: number;
-      if (w >= 1200) {
-        height = 820; // desktop
-      } else {
-        const t = Math.min(1, Math.max(0, (w - 343) / (1200 - 343)));
-        const ratio = 0.85 + (0.6 - 0.85) * t;
-        height = Math.min(820, w * ratio);
-      }
-      setFit({ mobile: false, fitScale, height, iframeW: 1440, iframeH: 1037 });
+      const height = Math.round(1080 * fitScale);
+      setFit({ mobile: false, fitScale, height, iframeW: 1440, iframeH: 1080 });
     };
 
     measure();
@@ -164,7 +161,7 @@ export function HeroSection() {
       >
         <div
           ref={screenRef}
-          className="w-full max-w-[1400px] rounded-t-2xl overflow-hidden"
+          className="w-full max-w-[1300px] rounded-t-2xl overflow-hidden"
           style={{
             height: `${fit.height}px`,
             position: "relative",

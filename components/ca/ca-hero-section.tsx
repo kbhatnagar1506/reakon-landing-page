@@ -7,10 +7,11 @@ const DEMO_SRC = "https://app.reakon.in/demo/ca";
 
 export function CaHeroSection() {
   const [isVisible, setIsVisible] = useState(false);
-  const [anim, setAnim] = useState({ scale: 0.86, opacity: 1 });
-  const videoRef = useRef<HTMLDivElement>(null);
   const screenRef = useRef<HTMLDivElement>(null);
-  const [fit, setFit] = useState({ mobile: false, fitScale: 0.834, height: 820, iframeW: 1440, iframeH: 1037 });
+  // Render the demo app at a fixed 1440×1080 logical size, scale it to the
+  // container width, and size the container to the FULL scaled height so the
+  // whole page fits in the frame (no crop).
+  const [fit, setFit] = useState({ mobile: false, fitScale: 1300 / 1440, height: Math.round(1080 * (1300 / 1440)), iframeW: 1440, iframeH: 1080 });
 
   useEffect(() => {
     setIsVisible(true);
@@ -25,19 +26,13 @@ export function CaHeroSection() {
       const w = el.clientWidth;
       if (!w) return;
       if (w < 768) {
-        setFit({ mobile: true, fitScale: 1, height: 820, iframeW: w, iframeH: 820 });
+        setFit({ mobile: true, fitScale: 1, height: 700, iframeW: w, iframeH: 700 });
         return;
       }
+      // Scale the fixed 1440×1080 app to the width and show it in full (no crop).
       const fitScale = w / 1440;
-      let height: number;
-      if (w >= 1200) {
-        height = 820;
-      } else {
-        const t = Math.min(1, Math.max(0, (w - 343) / (1200 - 343)));
-        const ratio = 0.85 + (0.6 - 0.85) * t;
-        height = Math.min(820, w * ratio);
-      }
-      setFit({ mobile: false, fitScale, height, iframeW: 1440, iframeH: 1037 });
+      const height = Math.round(1080 * fitScale);
+      setFit({ mobile: false, fitScale, height, iframeW: 1440, iframeH: 1080 });
     };
 
     measure();
@@ -52,34 +47,6 @@ export function CaHeroSection() {
       window.removeEventListener("resize", measure);
     };
   }, []);
-
-  useEffect(() => {
-    const el = videoRef.current;
-    if (!el) return;
-    const clamp = (v: number) => Math.min(1, Math.max(0, v));
-    const update = () => {
-      const rect = el.getBoundingClientRect();
-      const vh = window.innerHeight;
-      const focal = rect.top + rect.height * 0.32;
-      const offset = focal - vh * 0.5;
-      if (offset >= 0) {
-        const t = clamp(1 - offset / (vh * 1.05));
-        setAnim({ scale: 0.85 + t * 0.2, opacity: 1 });
-      } else {
-        const e = clamp(-offset / (vh * 0.6));
-        setAnim({ scale: 1 - e * 0.26, opacity: 1 - e * 0.25 });
-      }
-    };
-    update();
-    window.addEventListener("scroll", update, { passive: true });
-    window.addEventListener("resize", update);
-    return () => {
-      window.removeEventListener("scroll", update);
-      window.removeEventListener("resize", update);
-    };
-  }, []);
-
-  const { scale, opacity: screenOpacity } = anim;
 
   return (
     <section
@@ -209,23 +176,15 @@ export function CaHeroSection() {
 
       {/* Demo screen */}
       <div
-        ref={videoRef}
         className="relative z-10 w-full flex justify-center px-4 lg:px-10 pb-16 lg:pb-24"
-        style={{ perspective: "2200px" }}
       >
         <div
           ref={screenRef}
-          className="w-full max-w-[1400px] rounded-t-2xl overflow-hidden"
+          className="w-full max-w-[1300px] rounded-t-2xl overflow-hidden"
           style={{
             height: `${fit.height}px`,
             position: "relative",
-            transformStyle: "preserve-3d",
-            transformOrigin: "center top",
             boxShadow: "0 -4px 40px rgba(11,34,82,0.12), 0 40px 80px rgba(0,0,0,0.15)",
-            opacity: isVisible ? screenOpacity : 0,
-            transform: `scale(${scale})`,
-            transition: "transform 450ms cubic-bezier(0.22,1,0.36,1), opacity 450ms ease",
-            willChange: "transform, opacity",
           }}
         >
           <iframe
