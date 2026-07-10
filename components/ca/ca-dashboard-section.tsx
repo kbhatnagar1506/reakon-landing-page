@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { AlertTriangle, CheckCircle2, Clock, TrendingUp } from "lucide-react";
+import { TrendingUp } from "lucide-react";
 
 const EASE = "cubic-bezier(0.22,1,0.36,1)";
 
@@ -13,88 +13,62 @@ const FEATURES = [
   "Deadline tracking across the book",
 ];
 
-type Status = "risk" | "stuck" | "healthy";
-
-const CLIENTS: { name: string; gstin: string; status: Status; note: string; due: string }[] = [
-  { name: "Sharma Traders", gstin: "07AABCS…1Z5", status: "risk", note: "2 vendors unfiled", due: "GSTR-3B · 4d" },
-  { name: "Meera Textiles", gstin: "27AAFCM…9Q2", status: "healthy", note: "Reconciled", due: "Filed" },
-  { name: "Kapoor & Sons", gstin: "09AAGCK…3P8", status: "stuck", note: "₹84,200 credit stuck", due: "IMS action" },
-  { name: "Nova Electricals", gstin: "24AABCN…7R1", status: "healthy", note: "Reconciled", due: "GSTR-1 · 9d" },
-  { name: "Rao Enterprises", gstin: "36AACCR…5M4", status: "risk", note: "3B mismatch", due: "GSTR-3B · 4d" },
-];
-
-const STATUS_META: Record<Status, { label: string; color: string; bg: string; Icon: typeof AlertTriangle }> = {
-  risk: { label: "At risk", color: "#DC2626", bg: "rgba(220,38,38,0.10)", Icon: AlertTriangle },
-  stuck: { label: "Credit stuck", color: "#D97706", bg: "rgba(217,119,6,0.12)", Icon: Clock },
-  healthy: { label: "Healthy", color: "#16A34A", bg: "rgba(22,163,74,0.12)", Icon: CheckCircle2 },
-};
-
-function StatusBadge({ status }: { status: Status }) {
-  const m = STATUS_META[status];
-  return (
-    <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-semibold" style={{ color: m.color, background: m.bg }}>
-      <m.Icon className="w-3 h-3" strokeWidth={2.4} />
-      {m.label}
-    </span>
-  );
-}
+const CA_URL = "https://app.reakon.in/ca";
 
 function DashboardMockup() {
   return (
     <div
       className="w-full rounded-2xl overflow-hidden"
       style={{
-        background: "rgba(255,255,255,0.85)",
-        border: "1px solid rgba(255,255,255,0.9)",
+        background: "#fff",
+        border: "1px solid rgba(0,0,0,0.10)",
         boxShadow: "0 8px 40px rgba(11,34,82,0.14), 0 2px 8px rgba(0,0,0,0.06)",
-        backdropFilter: "blur(8px)",
-        WebkitBackdropFilter: "blur(8px)",
       }}
     >
-      {/* Top bar */}
-      <div className="flex items-center justify-between px-4 sm:px-5 py-3.5" style={{ borderBottom: "1px solid rgba(0,0,0,0.06)" }}>
-        <div className="flex items-center gap-2">
-          <span className="w-2.5 h-2.5 rounded-full" style={{ background: "#FF5F57" }} />
-          <span className="w-2.5 h-2.5 rounded-full" style={{ background: "#FEBC2E" }} />
-          <span className="w-2.5 h-2.5 rounded-full" style={{ background: "#28C840" }} />
+      {/* Browser chrome */}
+      <div
+        className="flex items-center gap-3 px-4 py-3"
+        style={{ background: "#F5F5F5", borderBottom: "1px solid rgba(0,0,0,0.08)" }}
+      >
+        <div className="flex items-center gap-1.5 shrink-0">
+          <span className="w-3 h-3 rounded-full" style={{ background: "#FF5F57" }} />
+          <span className="w-3 h-3 rounded-full" style={{ background: "#FEBC2E" }} />
+          <span className="w-3 h-3 rounded-full" style={{ background: "#28C840" }} />
         </div>
-        <span className="font-mono text-[11px] tracking-wide" style={{ color: "rgba(0,0,0,0.4)" }}>
-          Client Book — 48 active
-        </span>
+        <div
+          className="flex-1 flex items-center gap-2 rounded-md px-3 py-1.5"
+          style={{ background: "#fff", border: "1px solid rgba(0,0,0,0.10)" }}
+        >
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+            <circle cx="6" cy="6" r="5" stroke="rgba(0,0,0,0.3)" strokeWidth="1.2" />
+            <path d="M1.5 6h9M6 1.5C4.8 3 4 4.5 4 6s.8 3 2 4.5M6 1.5C7.2 3 8 4.5 8 6s-.8 3-2 4.5" stroke="rgba(0,0,0,0.3)" strokeWidth="1.2" />
+          </svg>
+          <span className="font-mono text-[11px]" style={{ color: "rgba(0,0,0,0.45)" }}>app.reakon.in/ca</span>
+        </div>
       </div>
 
-      {/* Summary strip */}
-      <div className="grid grid-cols-3 gap-px" style={{ background: "rgba(0,0,0,0.06)" }}>
-        {[
-          { label: "At risk", value: "6", color: "#DC2626" },
-          { label: "Credit stuck", value: "₹3.2L", color: "#D97706" },
-          { label: "Filing-ready", value: "39", color: "#16A34A" },
-        ].map((s) => (
-          <div key={s.label} className="px-4 py-3.5 sm:py-4" style={{ background: "rgba(255,255,255,0.9)" }}>
-            <div className="text-lg sm:text-2xl font-display tracking-tight" style={{ color: s.color }}>{s.value}</div>
-            <div className="text-[10px] sm:text-[11px] font-mono uppercase tracking-wide mt-0.5" style={{ color: "rgba(0,0,0,0.4)" }}>{s.label}</div>
-          </div>
-        ))}
-      </div>
-
-      {/* Client rows */}
-      <div>
-        {CLIENTS.map((c, i) => (
-          <div
-            key={c.name}
-            className="flex items-center justify-between gap-2 px-4 sm:px-5 py-3 sm:py-3.5"
-            style={{ borderTop: i === 0 ? "none" : "1px solid rgba(0,0,0,0.05)" }}
-          >
-            <div className="min-w-0">
-              <div className="text-[13px] sm:text-sm font-semibold truncate" style={{ color: "#0B2252" }}>{c.name}</div>
-              <div className="font-mono text-[10px] sm:text-[11px] truncate" style={{ color: "rgba(0,0,0,0.4)" }}>{c.gstin} · {c.note}</div>
-            </div>
-            <div className="flex items-center gap-2 sm:gap-3 shrink-0">
-              <span className="hidden sm:inline font-mono text-[11px]" style={{ color: "rgba(0,0,0,0.45)" }}>{c.due}</span>
-              <StatusBadge status={c.status} />
-            </div>
-          </div>
-        ))}
+      {/* Scaled iframe — fixed pixel height prevents layout blowout */}
+      <div style={{ position: "relative", width: "100%", height: "390px", overflow: "hidden", contain: "strict" }}>
+        <iframe
+          src={CA_URL}
+          style={{
+            position: "absolute",
+            top: 0,
+            left: 0,
+            width: "1280px",
+            height: "820px",
+            border: "none",
+            transform: "scale(0.469)",
+            transformOrigin: "top left",
+            pointerEvents: "none",
+          }}
+          title="Reakon CA dashboard"
+        />
+        {/* Click overlay → open in new tab */}
+        <div
+          style={{ position: "absolute", inset: 0, cursor: "pointer" }}
+          onClick={() => window.open(CA_URL, "_blank")}
+        />
       </div>
     </div>
   );
