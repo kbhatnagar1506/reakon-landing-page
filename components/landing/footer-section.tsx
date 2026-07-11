@@ -5,21 +5,23 @@ import Image from "next/image";
 
 const footerLinks = {
   Product: [
-    { name: "Features",     href: "#what-reakon-does" },
-    { name: "Why Reakon",   href: "#infrastructure" },
-    { name: "Connectors",   href: "/coming-soon?page=Integrations" },
+    { name: "Features",     href: "/#what-reakon-does" },
+    { name: "Why Reakon",   href: "/#infrastructure" },
+    { name: "Connectors",   href: "/#connectors" },
   ],
   Company: [
-    { name: "About",   href: "/coming-soon?page=About" },
+    { name: "About",   href: "/#founder" },
     { name: "Blog",    href: "/blog" },
-    { name: "Contact", href: "/coming-soon?page=Contact" },
+    { name: "Contact", href: "https://cal.com/reakon.in/45min" },
   ],
   Legal: [
-    { name: "Privacy",  href: "/privacy" },
-    { name: "Terms",    href: "/coming-soon?page=Terms" },
-    { name: "Security", href: "/coming-soon?page=Security" },
+    { name: "Privacy",  href: "https://app.reakon.in/privacy" },
+    { name: "Terms",    href: "https://app.reakon.in/terms" },
+    { name: "Security", href: "/#security" },
   ],
 };
+
+const isExternal = (href: string) => /^https?:\/\//.test(href);
 
 const InstagramIcon = () => (
   <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -131,6 +133,7 @@ export function FooterSection() {
                   <li key={link.name}>
                     <a
                       href={link.href}
+                      {...(isExternal(link.href) ? { target: "_blank", rel: "noopener noreferrer" } : {})}
                       className="text-sm transition-colors"
                       style={{ color: "rgba(0,0,0,0.6)" }}
                       onMouseEnter={(e) => { e.currentTarget.style.color = "#000"; }}

@@ -2,11 +2,11 @@ import type { MetadataRoute } from "next";
 import { posts, SITE_URL } from "./blog/posts";
 
 export default function sitemap(): MetadataRoute.Sitemap {
+  const now = new Date();
   const staticRoutes: MetadataRoute.Sitemap = [
-    { url: `${SITE_URL}/`, changeFrequency: "weekly", priority: 1 },
-    { url: `${SITE_URL}/ca`, changeFrequency: "weekly", priority: 0.9 },
-    { url: `${SITE_URL}/blog`, changeFrequency: "weekly", priority: 0.8 },
-    { url: `${SITE_URL}/privacy`, changeFrequency: "yearly", priority: 0.3 },
+    { url: `${SITE_URL}/`, lastModified: now, changeFrequency: "weekly", priority: 1 },
+    { url: `${SITE_URL}/ca`, lastModified: now, changeFrequency: "weekly", priority: 0.9 },
+    { url: `${SITE_URL}/blog`, lastModified: now, changeFrequency: "weekly", priority: 0.8 },
   ];
 
   const postRoutes: MetadataRoute.Sitemap = posts.map((p) => ({
