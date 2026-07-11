@@ -11,10 +11,12 @@ import { FaqSection } from "@/components/landing/faq-section";
 import { RegulatorySection } from "@/components/landing/regulatory-section";
 import { CtaSection } from "@/components/landing/cta-section";
 import { FooterSection } from "@/components/landing/footer-section";
+import { HomeStructuredData } from "@/components/seo/home-jsonld";
 
 export default function Home() {
   return (
     <main className="relative min-h-screen overflow-x-hidden noise-overlay" style={{ background: "#EDF4FB" }}>
+      <HomeStructuredData />
       {/* Global cloud blobs — no filter:blur to avoid GPU composite layers */}
       <div className="fixed inset-0 pointer-events-none overflow-hidden" style={{ zIndex: 0 }}>
         <div style={{ position: "absolute", top: "5%", left: "-8%", width: "500px", height: "260px", background: "radial-gradient(ellipse, rgba(255,255,255,0.45) 0%, transparent 70%)", borderRadius: "50%" }} />

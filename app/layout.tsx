@@ -48,6 +48,14 @@ export const metadata: Metadata = {
     title: 'Reakon — Stop losing the GST money that\'s already yours',
     description:
       'Find the GST credit you\'re losing, get paid faster, and flag risky vendors — all on WhatsApp.',
+    images: [
+      {
+        url: '/og-image.jpg',
+        width: 1200,
+        height: 630,
+        alt: 'Reakon — Track it, claim it, save it',
+      },
+    ],
   },
   twitter: {
     card: 'summary_large_image',
@@ -55,6 +63,7 @@ export const metadata: Metadata = {
     description:
       'Find the GST credit you\'re losing, get paid faster, and flag risky vendors — all on WhatsApp.',
     site: '@ReakonHQ',
+    images: ['/og-image.jpg'],
   },
   icons: {
     icon: [
