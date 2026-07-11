@@ -77,10 +77,10 @@ export function HeroSection() {
 
         {/* Headline */}
         <h1
-          className="font-display tracking-tight leading-[1.03]"
+          className="font-sans tracking-tight leading-[1.03]"
           style={{
             fontSize: "clamp(2rem, 5.4vw, 5.2rem)",
-            fontWeight: 400,
+            fontWeight: 600,
             letterSpacing: "-0.02em",
             color: "#000000",
             opacity: isVisible ? 1 : 0,
@@ -88,8 +88,8 @@ export function HeroSection() {
             transition: "opacity 900ms ease 100ms, transform 900ms ease 100ms",
           }}
         >
-          Stop losing the GST money<br />
-          that's already yours
+          Stop Losing The GST Money<br />
+          That&apos;s Already Yours
         </h1>
 
         {/* Divider */}
