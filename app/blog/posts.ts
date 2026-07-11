@@ -34,7 +34,7 @@ export type Post = {
   takeaways: string[];
 };
 
-export const SITE_URL = "https://reakon.in";
+export const SITE_URL = "https://www.reakon.in";
 
 export const categories = ["All", "GST Insights", "Cash Flow", "Vendor Risk", "For CAs", "WhatsApp", "ITC Explained"] as const;
 

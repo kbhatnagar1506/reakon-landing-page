@@ -6,8 +6,8 @@ import { AudienceToggle } from "./audience-toggle";
 
 const easing = "cubic-bezier(0.22,1,0.36,1)";
 
-const PARTNER_SIGNUP = "https://reakon.in";
-const PARTNER_LOGIN = "https://reakon.in";
+const PARTNER_SIGNUP = "https://www.reakon.in";
+const PARTNER_LOGIN = "https://www.reakon.in";
 const DEMO_LINK = "https://cal.com/reakon.in/45min";
 
 export function CaNavigation() {

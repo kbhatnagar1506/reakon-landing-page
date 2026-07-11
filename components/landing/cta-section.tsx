@@ -64,7 +64,7 @@ export function CtaSection() {
 
                 <div className="flex flex-col sm:flex-row items-stretch sm:items-start gap-4">
                   <a
-                    href="https://reakon.in"
+                    href="https://www.reakon.in"
                     className="inline-flex items-center justify-center text-white px-8 h-14 text-base font-semibold group hover:opacity-90 transition-opacity"
                     style={{
                       background: "linear-gradient(180deg, #7B96FA 0%, #4F6EF7 50%, #3D59E8 100%)",

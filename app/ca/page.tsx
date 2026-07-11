@@ -24,7 +24,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "en_IN",
-    url: "https://reakon.in/ca",
+    url: "https://www.reakon.in/ca",
     siteName: "Reakon",
     title: "Reakon for Chartered Accountants — GST done before you open Excel",
     description:

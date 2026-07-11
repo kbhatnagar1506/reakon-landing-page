@@ -3,7 +3,7 @@
 // components/landing/faq-section.tsx (Google requires the answer text to
 // match what's on the page).
 
-const SITE_URL = "https://reakon.in";
+const SITE_URL = "https://www.reakon.in";
 const LOGO = `${SITE_URL}/favicon.png`;
 
 const SOCIALS = [

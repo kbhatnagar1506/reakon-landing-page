@@ -22,7 +22,7 @@ const jetbrainsMono = JetBrains_Mono({
   variable: '--font-jetbrains'
 });
 
-const SITE_URL = 'https://reakon.in'
+const SITE_URL = 'https://www.reakon.in'
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),

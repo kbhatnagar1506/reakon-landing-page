@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   alternates: { canonical: "/blog" },
   openGraph: {
     type: "website",
-    url: "https://reakon.in/blog",
+    url: "https://www.reakon.in/blog",
     siteName: "Reakon",
     title: "Reakon Blog — Protect your money. Know your numbers.",
     description:
