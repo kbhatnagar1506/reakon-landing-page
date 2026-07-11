@@ -233,7 +233,7 @@ export function Navigation() {
               </a>
 
               <a
-                href="https://reakon.in"
+                href="https://app.reakon.in"
                 style={{
                   display: "flex",
                   alignItems: "center",
@@ -521,7 +521,7 @@ export function Navigation() {
 
             <div className="flex flex-col" style={{ gap: "12px" }}>
               <a
-                href="https://reakon.in"
+                href="https://app.reakon.in"
                 onClick={() => setIsMobileMenuOpen(false)}
                 className="w-full flex items-center justify-center transition-all duration-200 active:scale-[0.98]"
                 style={{

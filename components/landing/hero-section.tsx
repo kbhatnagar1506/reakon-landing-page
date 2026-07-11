@@ -127,7 +127,7 @@ export function HeroSection() {
           }}
         >
           <a
-            href="https://reakon.in"
+            href="https://app.reakon.in"
             className="inline-flex items-center justify-center px-5 sm:px-8 h-12 sm:h-14 text-sm sm:text-base font-semibold group hover:opacity-90 transition-opacity text-white whitespace-nowrap"
             style={{
               background: "linear-gradient(180deg, #7B96FA 0%, #4F6EF7 50%, #3D59E8 100%)",
