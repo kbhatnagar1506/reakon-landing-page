@@ -10,7 +10,7 @@ const footerLinks = {
     { name: "Connectors",   href: "/#connectors" },
   ],
   Company: [
-    { name: "About",   href: "/#founder" },
+    { name: "About",   href: "/team" },
     { name: "Blog",    href: "/blog" },
     { name: "Contact", href: "https://cal.com/reakon.in/45min" },
   ],

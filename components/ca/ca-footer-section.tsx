@@ -9,7 +9,7 @@ const footerLinks = {
     { name: "Blog", href: "/blog" },
   ],
   Company: [
-    { name: "About", href: "/#founder" },
+    { name: "About", href: "/team" },
     { name: "Become a partner", href: "/ca" },
     { name: "Contact", href: "https://cal.com/reakon.in/45min" },
   ],
