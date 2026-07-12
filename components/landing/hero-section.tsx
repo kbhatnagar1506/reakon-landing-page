@@ -114,7 +114,7 @@ export function HeroSection() {
             transition: "opacity 700ms ease 250ms, transform 700ms ease 250ms",
           }}
         >
-          Reakon finds the GST credit you're losing, chases the customers who owe you, and flags the vendors putting your money at risk — all on WhatsApp, without changing how you work.
+          Reakon Finds The GST Credit You&apos;re Losing, Chases The Customers Who Owe You, And Flags The Vendors Putting Your Money At Risk — All On WhatsApp, Without Changing How You Work.
         </p>
 
         {/* CTAs */}
@@ -135,7 +135,7 @@ export function HeroSection() {
               boxShadow: "0 2px 0 rgba(255,255,255,0.18) inset, 0 4px 16px rgba(79,110,247,0.35)",
             }}
           >
-            Sign up
+            Sign Up
             <ArrowRight className="w-4 h-4 ml-2 transition-transform group-hover:translate-x-1" />
           </a>
           <a
@@ -150,7 +150,7 @@ export function HeroSection() {
               boxShadow: "0 1px 4px rgba(0,0,0,0.12)",
             }}
           >
-            Contact us now
+            Contact Us Now
           </a>
         </div>
       </div>

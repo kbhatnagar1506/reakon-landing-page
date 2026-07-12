@@ -252,7 +252,7 @@ export function Navigation() {
                 onMouseEnter={e => { e.currentTarget.style.opacity = "0.85"; }}
                 onMouseLeave={e => { e.currentTarget.style.opacity = "1"; }}
               >
-                Sign up
+                Sign Up
               </a>
 
               <a
@@ -535,7 +535,7 @@ export function Navigation() {
                   boxShadow: "0 2px 0 rgba(255,255,255,0.18) inset, 0 10px 30px rgba(79,110,247,0.35)",
                 }}
               >
-                Sign up
+                Sign Up
               </a>
               <a
                 href="https://cal.com/reakon.in/45min"
