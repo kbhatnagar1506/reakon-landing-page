@@ -114,7 +114,7 @@ export function HeroSection() {
             transition: "opacity 700ms ease 250ms, transform 700ms ease 250ms",
           }}
         >
-          Reakon Finds The GST Credit You&apos;re Losing, Chases The Customers Who Owe You, And Flags The Vendors Putting Your Money At Risk — All On WhatsApp, Without Changing How You Work.
+          Reakon finds the GST credit you&apos;re losing, chases the customers who owe you, and flags the vendors putting your money at risk — all on WhatsApp, without changing how you work.
         </p>
 
         {/* CTAs */}
