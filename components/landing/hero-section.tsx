@@ -79,7 +79,7 @@ export function HeroSection() {
         <h1
           className="font-sans tracking-tight leading-[1.03]"
           style={{
-            fontSize: "clamp(2rem, 5.4vw, 5.2rem)",
+            fontSize: "clamp(1.9rem, 5.13vw, 4.94rem)",
             fontWeight: 600,
             letterSpacing: "-0.02em",
             color: "#000000",

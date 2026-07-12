@@ -1,6 +1,6 @@
 import React from "react"
 import type { Metadata } from 'next'
-import { Inter, Instrument_Serif, JetBrains_Mono } from 'next/font/google'
+import { Inter, JetBrains_Mono } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
 import { TurnstileWidget } from '@/components/landing/turnstile-widget'
 import { PreventInitialAutoScroll } from '@/components/prevent-initial-autoscroll'
@@ -9,12 +9,6 @@ import './globals.css'
 const inter = Inter({
   subsets: ["latin"],
   variable: '--font-inter'
-});
-
-const instrumentSerif = Instrument_Serif({
-  subsets: ["latin"],
-  weight: "400",
-  variable: '--font-instrument-serif'
 });
 
 const jetbrainsMono = JetBrains_Mono({
@@ -81,7 +75,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${inter.variable} ${instrumentSerif.variable} ${jetbrainsMono.variable} font-sans antialiased`}>
+      <body className={`${inter.variable} ${jetbrainsMono.variable} font-sans antialiased`}>
         <PreventInitialAutoScroll />
         {children}
         <TurnstileWidget />
