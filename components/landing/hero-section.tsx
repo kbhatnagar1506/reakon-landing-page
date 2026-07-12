@@ -80,7 +80,7 @@ export function HeroSection() {
           className="font-sans tracking-tight leading-[1.03]"
           style={{
             fontSize: "clamp(1.9rem, 5.13vw, 4.94rem)",
-            fontWeight: 600,
+            fontWeight: 500,
             letterSpacing: "-0.02em",
             color: "#000000",
             opacity: isVisible ? 1 : 0,
