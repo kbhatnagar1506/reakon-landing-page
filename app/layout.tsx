@@ -2,6 +2,7 @@ import React from "react"
 import type { Metadata } from 'next'
 import { Inter, JetBrains_Mono } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
+import Script from 'next/script'
 import { TurnstileWidget } from '@/components/landing/turnstile-widget'
 import { PreventInitialAutoScroll } from '@/components/prevent-initial-autoscroll'
 import './globals.css'
@@ -80,6 +81,20 @@ export default function RootLayout({
         {children}
         <TurnstileWidget />
         <Analytics />
+
+        {/* Google Analytics (GA4) */}
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-17W7H9P6PL"
+          strategy="afterInteractive"
+        />
+        <Script id="ga4-init" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-17W7H9P6PL');
+          `}
+        </Script>
       </body>
     </html>
   )
